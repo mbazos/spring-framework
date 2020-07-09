@@ -118,9 +118,9 @@ public class HttpInvokerTests {
 		assertThat(Arrays.equals(new int[] {4, 5, 6}, intArray[1])).isTrue();
 
 		assertThatIllegalStateException().isThrownBy(() ->
-				proxy.exceptional(new IllegalStateException()));
+															 proxy.exceptional(new IllegalStateException()));
 		assertThatExceptionOfType(IllegalAccessException.class).isThrownBy(() ->
-				proxy.exceptional(new IllegalAccessException()));
+																				   proxy.exceptional(new IllegalAccessException()));
 	}
 
 	@Test
@@ -147,8 +147,8 @@ public class HttpInvokerTests {
 		pfb.afterPropertiesSet();
 		ITestBean proxy = (ITestBean) pfb.getObject();
 		assertThatExceptionOfType(RemoteAccessException.class).isThrownBy(() ->
-				proxy.setAge(50))
-			.withCauseInstanceOf(IOException.class);
+																				  proxy.setAge(50))
+				.withCauseInstanceOf(IOException.class);
 	}
 
 	@Test
@@ -221,9 +221,9 @@ public class HttpInvokerTests {
 		assertThat(proxy.getAge()).isEqualTo(50);
 
 		assertThatIllegalStateException().isThrownBy(() ->
-				proxy.exceptional(new IllegalStateException()));
+															 proxy.exceptional(new IllegalStateException()));
 		assertThatExceptionOfType(IllegalAccessException.class).isThrownBy(() ->
-				proxy.exceptional(new IllegalAccessException()));
+																				   proxy.exceptional(new IllegalAccessException()));
 	}
 
 	@Test
@@ -237,7 +237,7 @@ public class HttpInvokerTests {
 				Object obj = ois.readObject();
 				if (!(obj instanceof TestRemoteInvocationWrapper)) {
 					throw new IOException("Deserialized object needs to be assignable to type [" +
-							TestRemoteInvocationWrapper.class.getName() + "]: " + obj);
+												  TestRemoteInvocationWrapper.class.getName() + "]: " + obj);
 				}
 				return ((TestRemoteInvocationWrapper) obj).remoteInvocation;
 			}
@@ -277,7 +277,7 @@ public class HttpInvokerTests {
 				Object obj = ois.readObject();
 				if (!(obj instanceof TestRemoteInvocationResultWrapper)) {
 					throw new IOException("Deserialized object needs to be assignable to type ["
-							+ TestRemoteInvocationResultWrapper.class.getName() + "]: " + obj);
+												  + TestRemoteInvocationResultWrapper.class.getName() + "]: " + obj);
 				}
 				return ((TestRemoteInvocationResultWrapper) obj).remoteInvocationResult;
 			}
@@ -291,9 +291,9 @@ public class HttpInvokerTests {
 		assertThat(proxy.getAge()).isEqualTo(50);
 
 		assertThatIllegalStateException().isThrownBy(() ->
-				proxy.exceptional(new IllegalStateException()));
+															 proxy.exceptional(new IllegalStateException()));
 		assertThatExceptionOfType(IllegalAccessException.class).isThrownBy(() ->
-				proxy.exceptional(new IllegalAccessException()));
+																				   proxy.exceptional(new IllegalAccessException()));
 	}
 
 	@Test
@@ -325,7 +325,7 @@ public class HttpInvokerTests {
 				RemoteInvocation invocation = new RemoteInvocation(methodInvocation);
 				invocation.addAttribute("myKey", "myValue");
 				assertThatIllegalStateException().isThrownBy(() ->
-						invocation.addAttribute("myKey", "myValue"));
+																	 invocation.addAttribute("myKey", "myValue"));
 				assertThat(invocation.getAttributes()).isNotNull();
 				assertThat(invocation.getAttributes().size()).isEqualTo(1);
 				assertThat(invocation.getAttributes().get("myKey")).isEqualTo("myValue");
@@ -434,8 +434,8 @@ public class HttpInvokerTests {
 		// should go through
 
 		assertThatExceptionOfType(RemoteAccessException.class).isThrownBy(() ->
-				proxy.setAge(50))
-			.withCauseInstanceOf(IOException.class);
+																				  proxy.setAge(50))
+				.withCauseInstanceOf(IOException.class);
 	}
 
 

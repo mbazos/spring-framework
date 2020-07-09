@@ -103,17 +103,17 @@ public class JaxWsSupportTests {
 			String order = orderService.getOrder(1000);
 			assertThat(order).isEqualTo("order 1000");
 			assertThatExceptionOfType(Exception.class).isThrownBy(() ->
-					orderService.getOrder(0))
-				.matches(ex -> ex instanceof OrderNotFoundException ||
-						ex instanceof RemoteAccessException);
+																		  orderService.getOrder(0))
+					.matches(ex -> ex instanceof OrderNotFoundException ||
+							ex instanceof RemoteAccessException);
 			// ignore RemoteAccessException as probably setup issue with JAX-WS provider vs JAXB
 
 			ServiceAccessor serviceAccessor = ac.getBean("accessor", ServiceAccessor.class);
 			order = serviceAccessor.orderService.getOrder(1000);
 			assertThat(order).isEqualTo("order 1000");
 			assertThatExceptionOfType(Exception.class).isThrownBy(() ->
-					serviceAccessor.orderService.getOrder(0))
-				.matches(ex -> ex instanceof OrderNotFoundException ||
+																		  serviceAccessor.orderService.getOrder(0))
+					.matches(ex -> ex instanceof OrderNotFoundException ||
 							ex instanceof WebServiceException);
 			// ignore WebServiceException as probably setup issue with JAX-WS provider vs JAXB
 		}
@@ -150,7 +150,7 @@ public class JaxWsSupportTests {
 
 		public OrderServiceService() throws MalformedURLException {
 			super(new URL("http://localhost:9999/OrderService?wsdl"),
-					new QName("http://jaxws.remoting.springframework.org/", "OrderService"));
+				  new QName("http://jaxws.remoting.springframework.org/", "OrderService"));
 		}
 
 		public OrderServiceService(URL wsdlDocumentLocation, QName serviceName) {

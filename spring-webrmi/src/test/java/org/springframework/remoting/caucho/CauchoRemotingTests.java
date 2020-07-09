@@ -16,22 +16,22 @@
 
 package org.springframework.remoting.caucho;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import com.caucho.hessian.client.HessianProxyFactory;
-import com.sun.net.httpserver.HttpServer;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.testfixture.beans.ITestBean;
 import org.springframework.beans.testfixture.beans.TestBean;
 import org.springframework.remoting.RemoteAccessException;
 import org.springframework.util.SocketUtils;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import com.caucho.hessian.client.HessianProxyFactory;
+import com.sun.net.httpserver.HttpServer;
 
 /**
  * @author Juergen Hoeller
@@ -44,7 +44,7 @@ public class CauchoRemotingTests {
 	public void hessianProxyFactoryBeanWithClassInsteadOfInterface() throws Exception {
 		HessianProxyFactoryBean factory = new HessianProxyFactoryBean();
 		assertThatIllegalArgumentException().isThrownBy(() ->
-				factory.setServiceInterface(TestBean.class));
+																factory.setServiceInterface(TestBean.class));
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class CauchoRemotingTests {
 		ITestBean bean = (ITestBean) factory.getObject();
 
 		assertThatExceptionOfType(RemoteAccessException.class).isThrownBy(() ->
-				bean.setName("test"));
+																				  bean.setName("test"));
 	}
 
 	@Test
@@ -79,13 +79,13 @@ public class CauchoRemotingTests {
 		ITestBean bean = (ITestBean) factory.getObject();
 
 		assertThatExceptionOfType(RemoteAccessException.class).isThrownBy(() ->
-				bean.setName("test"));
+																				  bean.setName("test"));
 	}
 
 	@Test
 	public void hessianProxyFactoryBeanWithCustomProxyFactory() throws Exception {
 		TestHessianProxyFactory proxyFactory = new TestHessianProxyFactory();
-		HessianProxyFactoryBean factory = new HessianProxyFactoryBean();
+		HessianProxyFactoryBean factory      = new HessianProxyFactoryBean();
 		factory.setServiceInterface(ITestBean.class);
 		factory.setServiceUrl("http://localhosta/testbean");
 		factory.setProxyFactory(proxyFactory);
@@ -103,7 +103,7 @@ public class CauchoRemotingTests {
 		assertThat(proxyFactory.overloadEnabled).isTrue();
 
 		assertThatExceptionOfType(RemoteAccessException.class).isThrownBy(() ->
-				bean.setName("test"));
+																				  bean.setName("test"));
 	}
 
 	@Test
@@ -111,7 +111,7 @@ public class CauchoRemotingTests {
 	public void simpleHessianServiceExporter() throws IOException {
 		final int port = SocketUtils.findAvailableTcpPort();
 
-		TestBean tb = new TestBean("tb");
+		TestBean                     tb       = new TestBean("tb");
 		SimpleHessianServiceExporter exporter = new SimpleHessianServiceExporter();
 		exporter.setService(tb);
 		exporter.setServiceInterface(ITestBean.class);
@@ -131,8 +131,7 @@ public class CauchoRemotingTests {
 			assertThat(proxy.getName()).isEqualTo("tb");
 			proxy.setName("test");
 			assertThat(proxy.getName()).isEqualTo("test");
-		}
-		finally {
+		} finally {
 			server.stop(Integer.MAX_VALUE);
 		}
 	}
@@ -140,8 +139,8 @@ public class CauchoRemotingTests {
 
 	private static class TestHessianProxyFactory extends HessianProxyFactory {
 
-		private String user;
-		private String password;
+		private String  user;
+		private String  password;
 		private boolean overloadEnabled;
 
 		@Override

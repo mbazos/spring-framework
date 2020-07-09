@@ -32,6 +32,7 @@ include "spring-test"
 include "spring-tx"
 include "spring-web"
 include "spring-webflux"
+include "spring-webrmi"
 include "spring-webmvc"
 include "spring-websocket"
 include "framework-bom"
@@ -62,3 +63,5 @@ settings.gradle.projectsLoaded {
 		}
 	}
 }
+include 'spring-webrmi'
+
